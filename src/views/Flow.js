@@ -19,8 +19,14 @@ import React from "react";
 // react plugin used to create google maps
 
 // reactstrap components
-import { Card, Container, Row } from "reactstrap";
-import { Col } from "reactstrap";
+import { Card, Container, Row, Col, CardBody,
+  NavItem,
+  NavLink,
+  Nav,
+  TabContent,
+  TabPane
+ } from "reactstrap";
+ import classnames from "classnames";
 
 // core components
 import Header from "components/Headers/HeaderDiagram.js";
@@ -30,10 +36,15 @@ import FlowChart from "components/Flows/Flow";
 
 class Flow extends React.Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   console.log(props);
-  // }
+  state = {
+    tabs: 1
+  };
+  toggleNavs = (e, state, index) => {
+    e.preventDefault();
+    this.setState({
+      [state]: index
+    });
+  };
 
   render() {
     console.log("flow chart id: ", this.props.match.params.id);
@@ -45,15 +56,102 @@ class Flow extends React.Component {
         <Container className="mt--7" fluid>
           <Row>
             <Col lg="6" xl="9">
-                <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
-                <FlowChart />
-                </Card>
+              <div className="nav-wrapper">
+                <Nav
+                  className="nav-fill flex-column flex-md-row"
+                  id="tabs-icons-text"
+                  pills
+                  role="tablist"
+                >
+                  <NavItem>
+                    <NavLink
+                      aria-selected={this.state.tabs === 1}
+                      className={classnames("mb-sm-3 mb-md-0", {
+                        active: this.state.tabs === 1
+                      })}
+                      onClick={e => this.toggleNavs(e, "tabs", 1)}
+                      href="#"
+                      role="tab"
+                    >
+                      {/* <i className="ni ni-cloud-upload-96 mr-2" /> */}
+                      Preprocessing
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      aria-selected={this.state.tabs === 2}
+                      className={classnames("mb-sm-3 mb-md-0", {
+                        active: this.state.tabs === 2
+                      })}
+                      onClick={e => this.toggleNavs(e, "tabs", 2)}
+                      href="#"
+                      role="tab"
+                    >
+                      {/* <i className="ni ni-bell-55 mr-2" /> */}
+                      Train
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      aria-selected={this.state.tabs === 3}
+                      className={classnames("mb-sm-3 mb-md-0", {
+                        active: this.state.tabs === 3
+                      })}
+                      onClick={e => this.toggleNavs(e, "tabs", 3)}
+                      href="#"
+                      role="tab"
+                    >
+                      {/* <i className="ni ni-delivery-fast mr-2" /> */}
+                      Deploy
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+              </div>
             </Col>
 
-            <Col lg="6" xl="3">
-              <NodesSidebar/>
-            </Col>
+            <Col lg="6" xl="12">
+              <TabContent activeTab={"tabs" + this.state.tabs}>
+                <TabPane tabId="tabs1">
+                  <Row>
+                    <Col lg="6" xl="9">
+                      <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
+                        <FlowChart />
+                      </Card>
+                    </Col>
 
+                    <Col lg="6" xl="3">
+                      <NodesSidebar/>
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="tabs2">
+                  <Row>
+                    <Col lg="6" xl="9">
+                      <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
+                        <FlowChart />
+                      </Card>
+                    </Col>
+
+                    {/* <Col lg="6" xl="3">
+                      <NodesSidebar/>
+                    </Col> */}
+                  </Row>
+                </TabPane>
+                <TabPane tabId="tabs3">
+                  <Row>
+                    {/* <Col lg="6" xl="9">
+                      <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
+                        <FlowChart />
+                      </Card>
+                    </Col> */}
+
+                    <Col lg="6" xl="3">
+                      <NodesSidebar/>
+                    </Col>
+                  </Row>
+                </TabPane>
+              </TabContent>
+            </Col>
 
 
           </Row>
