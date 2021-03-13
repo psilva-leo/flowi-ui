@@ -29,7 +29,23 @@ import Flow from "views/Flow.js";
 var routes = [
   {
     showInSidebar: true,
-    path: "/index",
+    path: "/flows",
+    name: "Flows",
+    icon: "fas fa-stream text-orange",
+    component: Flows,
+    layout: "/admin"
+  },
+  {
+    showInSidebar: false,
+    path: "/flows/:id",
+    name: "Flow",
+    icon: "fas fa-stream text-orange",
+    component: Flow,
+    layout: "/admin"
+  },
+  {
+    showInSidebar: true,
+    path: "/dashboard",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
@@ -49,22 +65,6 @@ var routes = [
     name: "Maps",
     icon: "ni ni-pin-3 text-orange",
     component: Maps,
-    layout: "/admin"
-  },
-  {
-    showInSidebar: true,
-    path: "/flows",
-    name: "Flows",
-    icon: "fas fa-stream text-orange",
-    component: Flows,
-    layout: "/admin"
-  },
-  {
-    showInSidebar: false,
-    path: "/flows/:id",
-    name: "Flow",
-    icon: "fas fa-stream text-orange",
-    component: Flow,
     layout: "/admin"
   },
   {

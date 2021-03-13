@@ -42,7 +42,7 @@ class AdminNavbar extends React.Component {
         <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
           <Container fluid>
             <Link
-              className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+              className="h1 mb-0 text-white text-uppercase d-none d-lg-inline-block"
               to="/"
             >
               {this.props.brandText}
