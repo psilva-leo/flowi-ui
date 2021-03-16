@@ -1,16 +1,16 @@
 import * as actions from "components/Flows/actions";
-import ComponentModal from "components/ComponentDetails/ComponentModal.js";
+import ComponentModal from "components/ComponentDetails/TrainingComponentModal.js";
 
 import { mapValues } from 'lodash'
 import * as React from 'react'
 import { FlowChart } from "@mrblenny/react-flow-chart";
 import NodeInnerCustom from "components/DiagramNodes/NodeInnerCustom.js";
 import { connect } from 'react-redux'
-import { updateChart } from 'store/actions/flowChart'
+import { updateTrainingChart } from 'store/actions/trainingFlowChart'
 
 
 const mapStateToProps = state => {
-  return {chart: state.chart}
+  return {trainingChart: state.trainingChart}
 }
 
 
@@ -19,11 +19,11 @@ export class ExternalReactState extends React.Component {
       
   constructor(props) {
     super(props);
-    this.state = this.props.chart;
+    this.state = this.props.trainingChart;
   }
 
   setStateCallback () {
-    this.props.dispatch(updateChart(this.state));
+    this.props.dispatch(updateTrainingChart(this.state));
   }
 
   triggerComponentModal() {
@@ -32,8 +32,8 @@ export class ExternalReactState extends React.Component {
   
   render () {
     const stateActions = mapValues(actions, (func: any) => (...args) => {
-      if (this.props.chart !== this.state) {
-        this.setState(this.props.chart);
+      if (this.props.trainingChart !== this.state) {
+        this.setState(this.props.trainingChart);
       }
       return this.setState(func(...args, this), this.setStateCallback);
     });
@@ -42,7 +42,7 @@ export class ExternalReactState extends React.Component {
       <>
         <ComponentModal ref={componentModal => this.componentModal = componentModal}/>
         <FlowChart
-          chart={this.props.chart}
+          chart={this.props.trainingChart}
           Components={{
             NodeInner: NodeInnerCustom,
           }}

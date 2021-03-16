@@ -31,7 +31,8 @@ import { Card, Container, Row, Col, CardBody,
 // core components
 import Header from "components/Headers/HeaderDiagram.js";
 import NodesSidebar from "components/Sidebar/NodesSidebar.js";
-import FlowChart from "components/Flows/Flow";
+import PreprocessingFlowChart from "components/Flows/PreprocessingFlowChart";
+import TrainingFlowChart from "components/Flows/TrainingFlowChart";
 
 
 class Flow extends React.Component {
@@ -115,7 +116,7 @@ class Flow extends React.Component {
                   <Row>
                     <Col lg="6" xl="9">
                       <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
-                        <FlowChart />
+                        <PreprocessingFlowChart />
                       </Card>
                     </Col>
 
@@ -128,13 +129,13 @@ class Flow extends React.Component {
                   <Row>
                     <Col lg="6" xl="9">
                       <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
-                        <FlowChart />
+                        <TrainingFlowChart />
                       </Card>
                     </Col>
 
-                    {/* <Col lg="6" xl="3">
+                    <Col lg="6" xl="3">
                       <NodesSidebar/>
-                    </Col> */}
+                    </Col>
                   </Row>
                 </TabPane>
                 <TabPane tabId="tabs3">

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import {
-  UPDATE_CHART,
-  UPDATE_NODE,
-} from 'store/actions/flowChart'
+  UPDATE_PREPROCESSING_CHART,
+  UPDATE_PREPROCESSING_NODE,
+} from 'store/actions/preprocessingFlowChart'
 
 
 const initialChart = {
@@ -18,9 +18,9 @@ const initialChart = {
 
 function chart(state = initialChart, action) {
   switch (action.type) {
-    case UPDATE_CHART:
+    case UPDATE_PREPROCESSING_CHART:
       return Object.assign({}, action.chart);
-    case UPDATE_NODE:      
+    case UPDATE_PREPROCESSING_NODE:      
       const newNode = action.node
       return {
         ...state,

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux'
-import { updatePreprocessingNode } from 'store/actions/preprocessingFlowChart'
+import { updateTrainingNode } from 'store/actions/trainingFlowChart'
 import { addSharedVariables, removeSharedVariables } from 'store/actions/sharedVariables'
 // reactstrap components
 import {
@@ -16,9 +16,9 @@ import * as MetricsNodes from "components/ComponentDetails/Metrics";
 
 
 const mapStateToProps = state => {
-  if (state.preprocessingChart.selected !== undefined && state.preprocessingChart.selected.type === 'node'){
-      let selected_id = state.preprocessingChart.selected.id
-      return { node: state.preprocessingChart.nodes[selected_id], properties:  state.preprocessingChart.nodes[selected_id].properties, sharedVariables: state.sharedVariables };
+  if (state.trainingChart.selected !== undefined && state.trainingChart.selected.type === 'node'){
+      let selected_id = state.trainingChart.selected.id
+      return { node: state.trainingChart.nodes[selected_id], properties:  state.trainingChart.nodes[selected_id].properties, sharedVariables: state.sharedVariables };
   } else{
       return {};
   }
@@ -29,12 +29,12 @@ const mapDispatchToProps = dispatch => {
     onNodeClick: (e, node) => {
         e.preventDefault();
 
-        dispatch(updatePreprocessingNode(node))
+        dispatch(updateTrainingNode(node))
     },
-    updatePreprocessingNode: (node) => {
+    updateTrainingNode: (node) => {
       // e.preventDefault();
 
-      dispatch(updatePreprocessingNode(node))
+      dispatch(updateTrainingNode(node))
     },
     addSharedVariables: (newVariables) => {
       dispatch(addSharedVariables(newVariables))
@@ -164,7 +164,7 @@ class ComponentModal extends React.Component {
       this.props.addSharedVariables(variablesToAdd);
     }
     
-    this.props.updatePreprocessingNode(this.state.node);
+    this.props.updateTrainingNode(this.state.node);
     this.toggleComponentModal();
   }
 

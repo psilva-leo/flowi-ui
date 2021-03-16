@@ -1,9 +1,11 @@
-import flowChartReducer from './flowChart';
+import preprocessingFlowChartReducer from './preprocessingFlowChart';
+import trainingFlowChartReducer from './trainingFlowChart';
 import sharedVariablesReducer from './sharedVariables';
 import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
-    chart: flowChartReducer,
+    preprocessingChart: preprocessingFlowChartReducer,
+    trainingChart: trainingFlowChartReducer,
     sharedVariables: sharedVariablesReducer
 });
 

@@ -1,7 +1,7 @@
 import {
     UPDATE_CHART,
     UPDATE_NODE,
-  } from 'store/actions/flowChart'
+  } from 'store/actions/preprocessingFlowChart'
   
   
 const initialChart = {
@@ -30,7 +30,7 @@ function flowChart(state = initialChart, action) {
             };
         default:
             return state
-}
+    }
 }
 
 export default flowChart;
