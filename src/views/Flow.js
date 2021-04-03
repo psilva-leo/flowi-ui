@@ -33,6 +33,8 @@ import Header from "components/Headers/HeaderDiagram.js";
 import NodesSidebar from "components/Sidebar/NodesSidebar.js";
 import PreprocessingFlowChart from "components/Flows/PreprocessingFlowChart";
 import TrainingFlowChart from "components/Flows/TrainingFlowChart";
+import Deploy from "components/Flows/Deploy";
+import Schedule from "components/Flows/Schedule";
 
 
 class Flow extends React.Component {
@@ -103,6 +105,20 @@ class Flow extends React.Component {
                       role="tab"
                     >
                       {/* <i className="ni ni-delivery-fast mr-2" /> */}
+                      Schedule
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      aria-selected={this.state.tabs === 4}
+                      className={classnames("mb-sm-3 mb-md-0", {
+                        active: this.state.tabs === 4
+                      })}
+                      onClick={e => this.toggleNavs(e, "tabs", 4)}
+                      href="#"
+                      role="tab"
+                    >
+                      {/* <i className="ni ni-delivery-fast mr-2" /> */}
                       Deploy
                     </NavLink>
                   </NavItem>
@@ -140,14 +156,15 @@ class Flow extends React.Component {
                 </TabPane>
                 <TabPane tabId="tabs3">
                   <Row>
-                    {/* <Col lg="6" xl="9">
-                      <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
-                        <FlowChart />
-                      </Card>
-                    </Col> */}
-
-                    <Col lg="6" xl="3">
-                      <NodesSidebar/>
+                    <Col lg="12" xl="12">
+                      <Schedule/>
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="tabs4">
+                  <Row>
+                    <Col lg="12" xl="12">
+                      <Deploy/>
                     </Col>
                   </Row>
                 </TabPane>
