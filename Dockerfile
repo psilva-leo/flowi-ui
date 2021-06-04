@@ -12,7 +12,7 @@ RUN useradd -ms /bin/bash flowi-ui
 
 WORKDIR /home/flowi-ui
 
-COPY package.json .
+COPY package.json package-lock.json ./
 RUN chown -R flowi-ui:flowi-ui /home/flowi-ui
 USER flowi-ui
 RUN npm install
