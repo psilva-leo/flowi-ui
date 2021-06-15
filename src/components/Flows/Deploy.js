@@ -202,11 +202,14 @@ export class ExternalReactState extends React.Component {
           <Card className="bg-secondary shadow">
             <CardBody>
               <Row>
+
                 <div className="col">
-                  <CardTitle className="text-uppercase text-muted mb-0">
-                    Deployed Version
+                  <CardTitle className="h1 text-uppercase text-muted mb-0">
+                    V1
                   </CardTitle>
-                  <span className="h2 font-weight-bold mb-0">v1</span>
+                  <span className="p mb-0">Production Version</span>
+                  <br/>
+                  <span class="p mb-0"><i>Today at 10:00 AM</i></span>
                 </div>
                 <Col className="col-auto">
                   <div className="icon icon-shape bg-danger text-white rounded-circle shadow">

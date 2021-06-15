@@ -66,6 +66,7 @@ class Flow extends React.Component {
                   pills
                   role="tablist"
                 >
+                  
                   <NavItem>
                     <NavLink
                       aria-selected={this.state.tabs === 1}
@@ -76,8 +77,8 @@ class Flow extends React.Component {
                       href="#"
                       role="tab"
                     >
-                      {/* <i className="ni ni-cloud-upload-96 mr-2" /> */}
-                      Preprocessing
+                      {/* <i className="ni ni-bell-55 mr-2" /> */}
+                      Train
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -90,8 +91,8 @@ class Flow extends React.Component {
                       href="#"
                       role="tab"
                     >
-                      {/* <i className="ni ni-bell-55 mr-2" /> */}
-                      Train
+                      {/* <i className="ni ni-delivery-fast mr-2" /> */}
+                      Schedule
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -105,20 +106,6 @@ class Flow extends React.Component {
                       role="tab"
                     >
                       {/* <i className="ni ni-delivery-fast mr-2" /> */}
-                      Schedule
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      aria-selected={this.state.tabs === 4}
-                      className={classnames("mb-sm-3 mb-md-0", {
-                        active: this.state.tabs === 4
-                      })}
-                      onClick={e => this.toggleNavs(e, "tabs", 4)}
-                      href="#"
-                      role="tab"
-                    >
-                      {/* <i className="ni ni-delivery-fast mr-2" /> */}
                       Deploy
                     </NavLink>
                   </NavItem>
@@ -128,7 +115,7 @@ class Flow extends React.Component {
 
             <Col lg="6" xl="12">
               <TabContent activeTab={"tabs" + this.state.tabs}>
-                <TabPane tabId="tabs1">
+                {/* <TabPane tabId="tabs1">
                   <Row>
                     <Col lg="6" xl="9">
                       <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
@@ -140,8 +127,8 @@ class Flow extends React.Component {
                       <NodesSidebar/>
                     </Col>
                   </Row>
-                </TabPane>
-                <TabPane tabId="tabs2">
+                </TabPane> */}
+                <TabPane tabId="tabs1">
                   <Row>
                     <Col lg="6" xl="9">
                       <Card className="shadow border-0" style={{maxHeight: "100vh" }}>
@@ -154,14 +141,14 @@ class Flow extends React.Component {
                     </Col>
                   </Row>
                 </TabPane>
-                <TabPane tabId="tabs3">
+                <TabPane tabId="tabs2">
                   <Row>
                     <Col lg="12" xl="12">
                       <Schedule/>
                     </Col>
                   </Row>
                 </TabPane>
-                <TabPane tabId="tabs4">
+                <TabPane tabId="tabs3">
                   <Row>
                     <Col lg="12" xl="12">
                       <Deploy/>
