@@ -24,8 +24,8 @@ const mapStateToProps = state => {
 }
 
 const options = [
-  { value: 'precision', label: 'precision' },
   { value: 'accuracy', label: 'accuracy' },
+  { value: 'precision', label: 'precision' },
   { value: 'false positive rate', label: 'false positive rate' }
 ]
 

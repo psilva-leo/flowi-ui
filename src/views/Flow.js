@@ -26,6 +26,7 @@ import { Card, Container, Row, Col, CardBody,
   TabContent,
   TabPane
  } from "reactstrap";
+ import { Button } from "reactstrap";
  import classnames from "classnames";
 
 // core components
@@ -113,6 +114,17 @@ class Flow extends React.Component {
               </div>
             </Col>
 
+            <Col lg="6" xl="3">
+              <div className="nav-wrapper float-right">
+                <Button color="secondary" type="button">
+                  Save
+                </Button>
+                <Button color="secondary" type="button">
+                  Run
+                </Button>
+              </div>
+            </Col>
+
             <Col lg="6" xl="12">
               <TabContent activeTab={"tabs" + this.state.tabs}>
                 {/* <TabPane tabId="tabs1">
@@ -156,6 +168,7 @@ class Flow extends React.Component {
                   </Row>
                 </TabPane>
               </TabContent>
+              
             </Col>
 
 
