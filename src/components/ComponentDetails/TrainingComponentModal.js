@@ -51,6 +51,8 @@ class ComponentModal extends React.Component {
   constructor(props) {
     super(props);
 
+    this.attributes = null;
+
     this.state = {
       componentModal: false,
       node: {}
@@ -153,17 +155,26 @@ class ComponentModal extends React.Component {
   }
 
   saveChanges(e){
-    if (this.state.node.properties.output_policy === 'create'){
-      let outputVariables = this.getOutputVariables(this.state.node.properties.attributes);
-      let previousOutputVariables = this.getOutputVariables(this.state.resetNode.properties.attributes);
+    // if (this.state.node.properties.output_policy === 'create'){
+    //   let outputVariables = this.getOutputVariables(this.state.node.properties.attributes);
+    //   let previousOutputVariables = this.getOutputVariables(this.state.resetNode.properties.attributes);
 
-      let variablesToAdd = this.variablesToAdd(outputVariables, this.props.sharedVariables);
-      let variablesToRemove = this.variablesToRemove(outputVariables, previousOutputVariables);
+    //   let variablesToAdd = this.variablesToAdd(outputVariables, this.props.sharedVariables);
+    //   let variablesToRemove = this.variablesToRemove(outputVariables, previousOutputVariables);
   
-      this.props.removeSharedVariables(variablesToRemove);
-      this.props.addSharedVariables(variablesToAdd);
-    }
+    //   this.props.removeSharedVariables(variablesToRemove);
+    //   this.props.addSharedVariables(variablesToAdd);
+    // }
     
+    let previousProperties = this.state.node.properties;
+    let node = Object.assign(this.state.node, {properties: {
+      ...previousProperties,
+      attributes: this.attributes
+    }});
+    this.setState({
+      node: node
+    });
+
     this.props.updateTrainingNode(this.state.node);
     this.toggleComponentModal();
   }
@@ -213,12 +224,12 @@ class ComponentModal extends React.Component {
       const TagName = this.nodeComponents[nodeType][nodeName];
 
       let nodeProperties = this.state.node.properties !== undefined ? this.state.node.properties : this.props.node.properties;
-      let nodeAttributes = nodeProperties.attributes;
+      let nodeAttributes = Object.assign({}, nodeProperties.attributes);
+      this.attributes = Object.assign({}, nodeProperties.attributes);
 
       return (
         <>
-          <TagName nodeAttributes={nodeAttributes} sharedVariables={this.props.sharedVariables} outputPolicy={nodeProperties.output_policy} handleChange={(node) => this.handleChange(node)}/>
-          {/* <OutputDetails nodeProperties={nodeProperties}  handleChange={(node) => this.handleChange(node)}/>   */}
+          <TagName attributes={this.attributes} nodeAttributes={nodeAttributes} handleChange={(node) => this.handleChange(node)}/>
         </>
       );
     }

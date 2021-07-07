@@ -161,13 +161,40 @@ class Profile extends React.Component {
                             >
                               Username
                             </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="lucky.jesse"
-                              id="input-username"
-                              placeholder="Username"
-                              type="text"
-                            />
+                            <i className="ni ni-fat-add float-right" />
+                            
+                            <Row className="mb-1">
+                              <Col lg="10">
+                                <Input
+                                  className="form-control-alternative"
+                                  defaultValue="lucky.jesse"
+                                  id="input-username"
+                                  placeholder="Username"
+                                  type="text"
+                                />
+                              </Col>
+                              <Col lg="1">
+                                <button class="btn btn-primary btn-neutral">
+                                  <i class="ni ni-fat-delete"></i>
+                                </button>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col lg="10">
+                                <Input
+                                  className="form-control-alternative"
+                                  defaultValue="lucky.jesse2"
+                                  id="input-username"
+                                  placeholder="Username"
+                                  type="text"
+                                />
+                              </Col>
+                              <Col lg="1">
+                                <button class="btn btn-primary btn-neutral">
+                                  <i class="ni ni-fat-add"></i>
+                                </button>
+                              </Col>
+                            </Row>
                           </FormGroup>
                         </Col>
                         <Col lg="6">

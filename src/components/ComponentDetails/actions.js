@@ -147,6 +147,9 @@ export const getDefault = (options, values, isMulti) => {
 export const stringListToDictList = (stringList) => {
   let dictList = [];
   if (stringList !== null) {
+    if (!Array.isArray(stringList)) {
+      stringList = [stringList];
+    }
     stringList.forEach(element => {
       dictList.push({value: element, label: element});
     });

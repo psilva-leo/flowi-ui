@@ -5,11 +5,9 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardTitle,
   FormGroup,
   Form,
   Input,
-  Container,
   Row,
   Col,
   InputGroupAddon,
@@ -23,11 +21,6 @@ const mapStateToProps = state => {
   return {trainingChart: state.trainingChart}
 }
 
-const options = [
-  { value: 'precision', label: 'precision' },
-  { value: 'accuracy', label: 'accuracy' },
-  { value: 'false positive rate', label: 'false positive rate' }
-]
 
 const experimentation_options = [
   { value: 'mlflow', label: 'mlflow' },

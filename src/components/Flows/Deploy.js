@@ -1,15 +1,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import {
-  Button,
   Card,
-  CardHeader,
   CardBody,
   CardTitle,
   FormGroup,
   Form,
   Input,
-  Container,
   Row,
   Col,
   InputGroupAddon,
@@ -17,6 +14,8 @@ import {
   InputGroup,
 } from "reactstrap";
 import Select from 'react-select';
+import ComponentsList from "components/Sidebar/ComponentsList";
+import * as LoadNodes from "components/DiagramNodes/Load";
 
 
 const mapStateToProps = state => {
@@ -29,14 +28,7 @@ const options = [
   { value: 'false positive rate', label: 'false positive rate' }
 ]
 
-const experimentation_options = [
-  { value: 'mlflow', label: 'mlflow' },
-  { value: 'polyaxon', label: 'polyaxon' },
-]
-
-export class ExternalReactState extends React.Component {
-
-      
+export class ExternalReactState extends React.Component {      
   
   render () {
     
@@ -110,8 +102,10 @@ export class ExternalReactState extends React.Component {
                           Link
                         </label>
                         <Input
+
                           className="form-control-alternative"
-                          disabled
+                          // disabled
+                          readOnly
                           placeholder="flowi.com/api/mnist/v1/prediction"
                           type="text"
                         />
@@ -162,14 +156,15 @@ export class ExternalReactState extends React.Component {
                         >
                           Input Data
                         </label>
-                        <InputGroup className="input-group-alternative mb-4">
+                        {/* <InputGroup className="input-group-alternative mb-4">
                           <Input placeholder="s3://flowi/mnist.csv" type="text" />
                           <InputGroupAddon addonType="append">
                             <InputGroupText>
                               <i className="ni ni-collection" />
                             </InputGroupText>
                           </InputGroupAddon>
-                        </InputGroup>
+                        </InputGroup> */}
+                        <ComponentsList componentsNodes={LoadNodes}/>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -209,7 +204,7 @@ export class ExternalReactState extends React.Component {
                   </CardTitle>
                   <span className="p mb-0">Production Version</span>
                   <br/>
-                  <span class="p mb-0"><i>Today at 10:00 AM</i></span>
+                  <span className="p mb-0"><i>Today at 10:00 AM</i></span>
                 </div>
                 <Col className="col-auto">
                   <div className="icon icon-shape bg-danger text-white rounded-circle shadow">

@@ -19,7 +19,7 @@ import React from "react";
 // react plugin used to create google maps
 
 // reactstrap components
-import { Card, Container, Row, Col, CardBody,
+import { Card, Container, Row, Col,
   NavItem,
   NavLink,
   Nav,
@@ -32,7 +32,7 @@ import { Card, Container, Row, Col, CardBody,
 // core components
 import Header from "components/Headers/HeaderDiagram.js";
 import NodesSidebar from "components/Sidebar/NodesSidebar.js";
-import PreprocessingFlowChart from "components/Flows/PreprocessingFlowChart";
+// import PreprocessingFlowChart from "components/Flows/PreprocessingFlowChart";
 import TrainingFlowChart from "components/Flows/TrainingFlowChart";
 import Deploy from "components/Flows/Deploy";
 import Schedule from "components/Flows/Schedule";

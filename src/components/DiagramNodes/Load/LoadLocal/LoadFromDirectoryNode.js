@@ -5,11 +5,13 @@ import { NODE_CLASS } from './common';
 const properties = {
     name: 'LoadFromDirectory',
     class: NODE_CLASS,
-    description: 'Loads data from path and creates a dataframe. For binary files (image and audio), dataframe consists of path, modificationTime, length, content and filename columns.',
+    description: 'Loads data from path and creates a dataframe.',
     output_policy: 'create',
     attributes: {
-      'directory_paths': ['train/'],
-      'file_type': 'binaryFile',
+      'train_path': 'train/',
+      'test_path': 'test/',
+      'file_type': 'csv',
+      'test_split': 0.2
     },
 };
 
