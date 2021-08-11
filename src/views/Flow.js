@@ -36,13 +36,81 @@ import NodesSidebar from "components/Sidebar/NodesSidebar.js";
 import TrainingFlowChart from "components/Flows/TrainingFlowChart";
 import Deploy from "components/Flows/Deploy";
 import Schedule from "components/Flows/Schedule";
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { updateTrainingNode } from 'store/actions/trainingFlowChart';
 
+
+const mapStateToProps = state => {
+  return {
+    chart: state.trainingChart,
+    schedule: state.schedule,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onNodeClick: (e, node) => {
+        e.preventDefault();
+
+        dispatch(updateTrainingNode(node))
+    },
+    updateTrainingNode: (node) => {
+      // e.preventDefault();
+
+      dispatch(updateTrainingNode(node))
+    }
+  }
+}
 
 class Flow extends React.Component {
 
-  state = {
-    tabs: 1
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabs: 1
+    };
+    this.runFlow = this.runFlow.bind(this);
+  }
+
+  
+  
+  runFlow(e) {
+    e.preventDefault()
+    console.log('Running chart');
+    // validate chart
+    // send to server
+    let data = {
+      'conf': {
+        'flow_name': this.props.match.params.id,
+        'deploy': {
+          'api': '',
+          'batch': '',
+        },
+        "schedule_interval": this.props.schedule.schedule_interval,
+        "version": "1",
+        "experiment_tracking": this.props.schedule.experiment_tracking,
+        'flow_chart': this.props.chart
+      }
+    }
+    console.log(data);
+    let url = "localhost:8080"
+    axios.post('http://' + url + '/api/trigger_dag', data,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => {
+
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
   toggleNavs = (e, state, index) => {
     e.preventDefault();
     this.setState({
@@ -116,10 +184,10 @@ class Flow extends React.Component {
 
             <Col lg="6" xl="3">
               <div className="nav-wrapper float-right">
-                <Button color="secondary" type="button">
+              <Button color="secondary" type="button">
                   Save
                 </Button>
-                <Button color="secondary" type="button">
+                <Button color="secondary" type="button" onClick={this.runFlow}>
                   Run
                 </Button>
               </div>
@@ -179,4 +247,5 @@ class Flow extends React.Component {
   }
 }
 
+Flow = connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(Flow);
 export default Flow;

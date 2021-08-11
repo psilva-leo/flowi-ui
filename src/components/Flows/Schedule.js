@@ -1,5 +1,6 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { updateSchedule } from 'store/actions/schedule';
 import {
   Button,
   Card,
@@ -14,22 +15,69 @@ import {
   InputGroupText,
   InputGroup,
 } from "reactstrap";
-import Select from 'react-select';
 
 
 const mapStateToProps = state => {
-  return {trainingChart: state.trainingChart}
+  return {schedule: state.schedule}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateSchedule: (schedule) => {
+      dispatch(updateSchedule(schedule))
+    }
+  }
 }
 
 
-const experimentation_options = [
-  { value: 'mlflow', label: 'mlflow' },
-  { value: 'polyaxon', label: 'polyaxon' },
+const experimentationOptions = [
+  <option key="mlflow" value='MLflow'>MLflow</option>,
+  <option key="polyaxon" value='polyaxon'>Polyaxon</option>
 ]
 
-export class ExternalReactState extends React.Component {
+export class Schedule extends React.Component {
 
-      
+  constructor(props){
+    super(props);
+
+    
+    this.state = {
+      enabled: this.props.schedule.schedule_interval === "None"
+    }
+    this.sechedule_interval = this.props.schedule.schedule_interval
+    
+
+    this.changeScheduleInterval = this.changeScheduleInterval.bind(this);
+    this.changeScheduleIntervalEnabled = this.changeScheduleIntervalEnabled.bind(this);
+    this.changeExperimentTracking = this.changeExperimentTracking.bind(this);
+  }
+
+  changeScheduleIntervalEnabled(e) {
+    let schedule = this.props.schedule;
+    let enabled = e.target.checked;
+    if (enabled) {
+      schedule.schedule_interval = this.sechedule_interval;
+    } else {
+      schedule.schedule_interval = "None";
+    }
+
+    this.props.updateSchedule(schedule)
+    this.setState({ enabled: enabled })    
+  }
+
+  changeScheduleInterval(e) {
+    let schedule = this.props.schedule;
+    schedule.schedule_interval = e.target.value;
+    
+    this.sechedule_interval =  schedule.schedule_interval;
+    this.props.updateSchedule(schedule)
+  }
+
+  changeExperimentTracking(e) {
+    let schedule = this.props.schedule;
+    schedule.experiment_tracking = e.target.value
+    this.props.updateSchedule(schedule)
+  }
   
   render () {
     
@@ -47,7 +95,10 @@ export class ExternalReactState extends React.Component {
                   </Col>
                   <Col className="text-right" xs="4">
                     <label className="custom-toggle">
-                      <input defaultChecked type="checkbox" />
+                      <input
+                      checked={this.state.enabled}
+                      onChange={this.changeScheduleIntervalEnabled}
+                      type="checkbox"/>
                       <span className="custom-toggle-slider rounded-circle" />
                     </label>
                   </Col>
@@ -63,7 +114,7 @@ export class ExternalReactState extends React.Component {
                           Cron
                         </label>
                         <InputGroup className="input-group-alternative mb-4">
-                          <Input placeholder="0 0 * * *" type="text" />
+                          <Input placeholder="0 0 * * *" type="text" onChange={this.changeScheduleInterval} disabled={!this.state.enabled}/>
                           <InputGroupAddon addonType="append">
                             <InputGroupText>
                               <i className="ni ni-calendar-grid-58" />
@@ -72,29 +123,7 @@ export class ExternalReactState extends React.Component {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                    <Col lg="6">
-                      <FormGroup>
-                      <label
-                          className="form-control-label"
-                          htmlFor="input-city"
-                        >
-                        </label>
-                        <div className="custom-control custom-checkbox mb-3">
-                          <input
-                            className="custom-control-input"
-                            id="customCheck1"
-                            type="checkbox"
-                          />
-                          <label className="custom-control-label" htmlFor="customCheck1">
-                            Trigger mannualy only
-                          </label>
-                        </div>
-
-
-
-                      
-                      </FormGroup>
-                    </Col>
+                    
                   </Row>
                 </div>
                 {/* <hr className="my-4" /> */}
@@ -122,12 +151,21 @@ export class ExternalReactState extends React.Component {
               </Row>
             </CardHeader>
             <CardBody>
-              <Select className="form-control-alternative" defaultValue={experimentation_options[0]} options={experimentation_options}
+              <Input
+                className="form-control-alternative"
+                // id={input_id}
+                defaultValue={this.props.schedule.experiment_tracking}
+                onChange={this.changeExperimentTracking}
+                type='select'
+              >
+              {experimentationOptions}
+              </Input>
+              {/* <Select className="form-control-alternative" defaultValue={experimentation_options[0]} options={experimentation_options}
                                 isSearchable={true}
                                 isMulti={false}
                                 isClearable={false}
                                 allowCreateWhileLoading={false}
-                        />
+                        /> */}
             </CardBody>
           </Card>
         </Col>
@@ -136,5 +174,6 @@ export class ExternalReactState extends React.Component {
     )
   }
 }
-ExternalReactState = connect(mapStateToProps)(ExternalReactState)
-export default ExternalReactState;
+
+Schedule = connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(Schedule);
+export default Schedule;

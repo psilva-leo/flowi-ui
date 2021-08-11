@@ -8,7 +8,7 @@ import {
   Col
 } from "reactstrap";
 import Select from 'react-select';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 
@@ -36,7 +36,7 @@ class NodesSidebar extends React.Component {
     
   constructor(props) {
     super(props);
-    this.saveChart = this.saveChart.bind(this);
+    // this.saveChart = this.saveChart.bind(this);
     this.change = this.change.bind(this);
     this.state = {
       value: null
@@ -47,35 +47,35 @@ class NodesSidebar extends React.Component {
     this.setState({value: event.value});
   }
 
-  saveChart(e) {
-    e.preventDefault()
-    console.log('Saving chart');
-    console.log(this.props.chart);
-    // validate chart
-    // send to server
-    let data = {
-      'conf': {'chart': this.props.chart}
-    }
-    let url = "10.152.183.110"
-    // let url = "localhost:8080"
-    console.log(process.env.REACT_APP_AIRFLOW_URL);
-    console.log(url)
-    axios.post('http://' + url + '/api/trigger_dag', data)
-    // axios.post('http://10.152.183.110/api/v1/dags/Helloworld/dagRuns', data,
-    // axios.post('http://localhost:8080/api/customers', data,
-    // {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   }
-    // })
-      .then(response => {
+  // saveChart(e) {
+  //   e.preventDefault()
+  //   console.log('Saving chart');
+  //   console.log(this.props.chart);
+  //   // validate chart
+  //   // send to server
+  //   let data = {
+  //     'conf': {'chart': this.props.chart}
+  //   }
+  //   let url = "10.152.183.110"
+  //   // let url = "localhost:8080"
+  //   console.log(process.env.REACT_APP_AIRFLOW_URL);
+  //   console.log(url)
+  //   axios.post('http://' + url + '/api/trigger_dag', data)
+  //   // axios.post('http://10.152.183.110/api/v1/dags/Helloworld/dagRuns', data,
+  //   // axios.post('http://localhost:8080/api/customers', data,
+  //   // {
+  //   //   headers: {
+  //   //     'Content-Type': 'application/json',
+  //   //   }
+  //   // })
+  //     .then(response => {
 
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  //       console.log(response);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
   
   renderComponentType(param) {
     if (param !== null) {
@@ -94,7 +94,7 @@ class NodesSidebar extends React.Component {
               <Col xs="8">
                 <h3 className="mb-0">Components</h3>
               </Col>
-              <Col className="text-right" xs="4">
+              {/* <Col className="text-right" xs="4">
                 <Button
                   color="primary"
                   href="#pablo"
@@ -103,7 +103,7 @@ class NodesSidebar extends React.Component {
                 >
                   Save
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
           </CardHeader>
           <CardBody>

@@ -46,7 +46,7 @@ class Tables extends React.Component {
   }
 
   routeChange() {
-    let path = '/admin/flows/1234';
+    let path = '/admin/flows/MNIST';
     this.props.history.push(path);
   }
 
