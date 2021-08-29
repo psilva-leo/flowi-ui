@@ -10,6 +10,8 @@ import {
 } from "reactstrap";
 
 import * as LoadNodes from "components/ComponentDetails/Load";
+import * as ModelsNodes from "components/ComponentDetails/Models";
+import * as LabelNodes from "components/ComponentDetails/Label";
 import * as PreprocessingNodes from "components/ComponentDetails/Preprocessing";
 import * as TrainingNodes from "components/ComponentDetails/Training";
 import * as MetricsNodes from "components/ComponentDetails/Metrics";
@@ -59,6 +61,8 @@ class ComponentModal extends React.Component {
     };
     this.nodeComponents = {
       'Load': LoadNodes,
+      'Models': ModelsNodes,
+      'Label': LabelNodes,
       'Preprocessing': PreprocessingNodes,
       'Training': TrainingNodes,
       'Metrics': MetricsNodes
@@ -229,7 +233,7 @@ class ComponentModal extends React.Component {
 
       return (
         <>
-          <TagName attributes={this.attributes} nodeAttributes={nodeAttributes} handleChange={(node) => this.handleChange(node)}/>
+          <TagName attributes={this.attributes} nodeAttributes={nodeAttributes} />
         </>
       );
     }

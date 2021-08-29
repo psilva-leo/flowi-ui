@@ -11,9 +11,10 @@ const fileTypeOptions = [
   <option key="file_type3" value='audio'>Audio</option>
 ]
 
-export class LoadFromDirectoryDetails extends React.Component {
-  
+export class LoadFileDetails extends React.Component {
     render () {
+      console.log(this.props.attributes);
+      console.log(this.props.nodeAttributes);
       return (
         <>
           <h6 className="heading-small text-muted">Parameters</h6>
@@ -54,4 +55,4 @@ export class LoadFromDirectoryDetails extends React.Component {
 }
   
 
-export default LoadFromDirectoryDetails
+export default LoadFileDetails

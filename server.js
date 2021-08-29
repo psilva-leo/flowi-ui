@@ -15,12 +15,34 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 
 app.post('/api/trigger_dag', function(req, res){
-  let dagName = "FlowiTrain";   
+  let dagName = "FlowiTrainMNIST";   
   let data = {
     "is_paused": false
   };
+  console.log('triggering');
 
-  axios.patch('http://10.152.183.151/api/v1/dags/' + dagName, data,
+  // axios.patch('http://10.152.183.25/api/v1/dags/' + dagName, data,
+  //   {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     auth: {
+  //       username: "admin",
+  //       password: "admin"
+  //     }
+  //   })
+  //     .then(response => {
+  //       console.log('ok response');
+  //       res.json({'ok': 'ok'});
+  //     })
+  //     .catch(error => {
+  //       console.log('error');
+  //       console.log(error);
+  //       res.json(error);
+  //     });
+
+
+  axios.post('http://10.152.183.25/api/v1/dags/' + dagName + '/dagRuns', req.body,
     {
       headers: {
         'Content-Type': 'application/json',
@@ -32,28 +54,7 @@ app.post('/api/trigger_dag', function(req, res){
     })
       .then(response => {
         console.log('ok response');
-        res.json('ok');
-      })
-      .catch(error => {
-        console.log('error');
-        console.log(error);
-        res.json(error);
-      });
-
-
-  axios.post('http://10.152.183.151/api/v1/dags/' + dagName + '/dagRuns', req.body,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      auth: {
-        username: "admin",
-        password: "admin"
-      }
-    })
-      .then(response => {
-        console.log('ok response');
-        res.json('ok');
+        res.json({'ok': 'ok'});
       })
       .catch(error => {
         console.log('error');
@@ -62,6 +63,8 @@ app.post('/api/trigger_dag', function(req, res){
       });
 
 });
+
+
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

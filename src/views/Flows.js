@@ -68,8 +68,7 @@ class Tables extends React.Component {
                     <Col className="text-right" xs="4">
                       <Button
                         color="primary"
-                        href="#pablo"
-                        // onClick={this.saveChart}
+                        onClick={this.routeChange}
                         size="sm"
                       >
                         New Flow

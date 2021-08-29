@@ -1,5 +1,6 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { updateDeploy } from 'store/actions/deploy';
 import {
   Card,
   CardBody,
@@ -14,24 +15,121 @@ import {
   InputGroup,
 } from "reactstrap";
 import Select from 'react-select';
-import ComponentsList from "components/Sidebar/ComponentsList";
-import * as LoadNodes from "components/DiagramNodes/Load";
+// import ComponentsList from "components/Sidebar/ComponentsList";
+// import * as LoadNodes from "components/DiagramNodes/Load";
+import * as LoadNodes from "components/ComponentDetails/Load";
+// import * as LoadNodes from "components/ComponentDetails/Preprocessing";
 
 
 const mapStateToProps = state => {
-  return {trainingChart: state.trainingChart}
+  return {deploy: state.deploy}
 }
 
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateDeploy: (deploy) => {
+      dispatch(updateDeploy(deploy))
+    }
+  }
+}
+
+
 const options = [
-  { value: 'accuracy', label: 'accuracy' },
-  { value: 'precision', label: 'precision' },
-  { value: 'false positive rate', label: 'false positive rate' }
+  <option key="accuracy" value='accuracy'>Accuracy</option>,
+  <option key="precision" value='precision'>Precision</option>,
 ]
 
-export class ExternalReactState extends React.Component {      
+
+
+export class Deploy extends React.Component {      
+
+
+  constructor(props){
+    super(props);
+
+    
+    this.state = {
+      apiEnabled: this.props.deploy.api.enabled,
+      batchEnabled: this.props.deploy.batch.enabled
+    }
+    this.batch_sechedule_interval = this.props.deploy.batch.schedule_interval;
+    this.load_option = "";
+    
+
+    this.changeApiEnabled = this.changeApiEnabled.bind(this);
+    this.changeBatchEnabled = this.changeBatchEnabled.bind(this);
+    // this.changeScheduleInterval = this.changeScheduleInterval.bind(this);
+    
+    // this.changeExperimentTracking = this.changeExperimentTracking.bind(this);
+  }
+
+  getLoadOptions () {
+    let list = Object.keys(LoadNodes)
+    console.log(list);
+    let options = [];
+
+    for (let i = 0; i < list.length; i++) {
+      options.push(<option key={list[i]} value={list[i]}>{list[i]}</option>);
+    }
+
+    return options;
+  }
+
+  renderLoadComponent() {
+
+    if (this.load_option == "") {
+      let list = Object.keys(LoadNodes)
+      this.load_option = list[0];
+    }
+
+
+    let attributes = {
+      "train_path":"train/",
+      "test_path":"test/",
+      "file_type":"csv",
+      "test_split":0.2,
+    };
+    
+    const TagName = LoadNodes[this.load_option];
+    return (
+      <TagName attributes={attributes} nodeAttributes={attributes}></TagName>
+    );
+  }
+
+  changeApiEnabled(e) {
+    let deploy = this.props.deploy;
+    let enabled = e.target.checked;
+
+    deploy.api.enabled = enabled;
+    this.props.updateDeploy(deploy)
+    this.setState({ apiEnabled: enabled })    
+  }
+
+  changeBatchEnabled(e) {
+    let deploy = this.props.deploy;
+    let enabled = e.target.checked;
+
+    if (enabled) {
+      deploy.batch.schedule_interval = this.batch_sechedule_interval;
+    } else {
+      deploy.batch.schedule_interval = "None";
+    }
+
+    deploy.batch.enabled = enabled;
+    this.props.updateDeploy(deploy)
+    this.setState({ batchEnabled: enabled })
+  }
+
+  changeBatchScheduleInterval(e){
+    let deploy = this.props.deploy;
+    deploy.batch.schedule_interval = e.target.value;
+    
+    this.batch_sechedule_interval =  deploy.batch.schedule_interval;
+    this.props.updateSchedule(deploy)
+  }
   
   render () {
-    
 
     return (
       <>
@@ -53,10 +151,14 @@ export class ExternalReactState extends React.Component {
                         >
                           Function
                         </label>
-                        <Select className="form-control-alternative" defaultValue={options[0]} options={options}
-                                isSearchable={true}
-                                isMulti={true}
-                        />
+                        <Input
+                          className="form-control-alternative"
+                          // id={input_id}
+                          defaultValue={options[0]}
+                          // onChange={this.changeText}
+                          type="select">
+                          {options}
+                        </Input>
                       </FormGroup>
                     </Col>
                     <Col lg="6">
@@ -65,7 +167,7 @@ export class ExternalReactState extends React.Component {
                           className="form-control-label"
                           htmlFor="input-last-name"
                         >
-                          Threashold
+                          Threshold
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -86,7 +188,10 @@ export class ExternalReactState extends React.Component {
                   </Col>
                   <Col className="text-right" xs="4">
                     <label className="custom-toggle">
-                      <input defaultChecked type="checkbox" />
+                      <input
+                      checked={this.state.apiEnabled}
+                      onChange={this.changeApiEnabled}
+                      type="checkbox" />
                       <span className="custom-toggle-slider rounded-circle" />
                     </label>
                   </Col>
@@ -102,11 +207,9 @@ export class ExternalReactState extends React.Component {
                           Link
                         </label>
                         <Input
-
                           className="form-control-alternative"
-                          // disabled
-                          readOnly
-                          placeholder="flowi.com/api/mnist/v1/prediction"
+                          disabled={!this.state.apiEnabled}
+                          value="flowi.com/api/mnist/v1/prediction"
                           type="text"
                         />
                       </FormGroup>
@@ -121,7 +224,10 @@ export class ExternalReactState extends React.Component {
                   </Col>
                   <Col className="text-right" xs="4">
                     <label className="custom-toggle">
-                      <input defaultChecked type="checkbox" />
+                      <input
+                      checked={this.state.batchEnabled}
+                      onChange={this.changeBatchEnabled}
+                      type="checkbox" />
                       <span className="custom-toggle-slider rounded-circle" />
                     </label>
                   </Col>
@@ -137,18 +243,13 @@ export class ExternalReactState extends React.Component {
                           Cron
                         </label>
                         <InputGroup className="input-group-alternative mb-4">
-                          <Input placeholder="0 0 * * *" type="text" />
-                          <InputGroupAddon addonType="append">
-                            <InputGroupText>
-                              <i className="ni ni-calendar-grid-58" />
-                            </InputGroupText>
-                          </InputGroupAddon>
+                          <Input placeholder="0 0 * * *" type="text" onChange={this.changeBatchScheduleInterval} disabled={!this.state.batchEnabled}/>
                         </InputGroup>
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
-                    <Col lg="8">
+                    <Col>
                       <FormGroup>
                       <label
                           className="form-control-label"
@@ -156,6 +257,14 @@ export class ExternalReactState extends React.Component {
                         >
                           Input Data
                         </label>
+                        <Input
+                          className="form-control-alternative"
+                          // id={input_id}
+                          defaultValue={this.getLoadOptions()[0]}
+                          // onChange={this.changeText}
+                          type="select">
+                          {this.getLoadOptions()}
+                        </Input>
                         {/* <InputGroup className="input-group-alternative mb-4">
                           <Input placeholder="s3://flowi/mnist.csv" type="text" />
                           <InputGroupAddon addonType="append">
@@ -164,7 +273,14 @@ export class ExternalReactState extends React.Component {
                             </InputGroupText>
                           </InputGroupAddon>
                         </InputGroup> */}
-                        <ComponentsList componentsNodes={LoadNodes}/>
+                        {/* <ComponentsList componentsNodes={LoadNodes}/> */}
+                        {/* let nodeName = this.props.node.properties.name + 'Details';
+                        const TagName = this.nodeComponents[nodeType][nodeName]; */}
+                        <Card>
+                          <CardBody>
+                            {this.renderLoadComponent()}
+                          </CardBody>
+                        </Card>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -178,7 +294,7 @@ export class ExternalReactState extends React.Component {
                           Output Data
                         </label>
                         <InputGroup className="input-group-alternative mb-4">
-                          <Input placeholder="s3://flowi/mnist-out.csv" type="text" />
+                          <Input placeholder="s3://flowi/mnist-out.csv" type="text" disabled={!this.state.batchEnabled}/>
                           <InputGroupAddon addonType="append">
                             <InputGroupText>
                               <i className="ni ni-book-bookmark" />
@@ -223,5 +339,7 @@ export class ExternalReactState extends React.Component {
     )
   }
 }
-ExternalReactState = connect(mapStateToProps)(ExternalReactState)
-export default ExternalReactState;
+
+
+Deploy = connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(Deploy);
+export default Deploy;

@@ -10,6 +10,8 @@ import {
 } from "reactstrap";
 
 import * as LoadNodes from "components/ComponentDetails/Load";
+import * as LabelNodes from "components/ComponentDetails/Label";
+import * as ModelsNodes from "components/ComponentDetails/Models";
 import * as PreprocessingNodes from "components/ComponentDetails/Preprocessing";
 import * as TrainingNodes from "components/ComponentDetails/Training";
 import * as MetricsNodes from "components/ComponentDetails/Metrics";
@@ -57,7 +59,9 @@ class ComponentModal extends React.Component {
     };
     this.nodeComponents = {
       'Load': LoadNodes,
+      'Label': LabelNodes,
       'Preprocessing': PreprocessingNodes,
+      'Models': ModelsNodes,
       'Training': TrainingNodes,
       'Metrics': MetricsNodes
     };

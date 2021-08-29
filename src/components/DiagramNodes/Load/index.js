@@ -1,5 +1,5 @@
-import LoadFromDirectoryNode from './LoadLocal/LoadFromDirectoryNode';
+import LoadFileNode from './LoadLocal/LoadFileNode';
 
 export {
-    LoadFromDirectoryNode
+    LoadFileNode
 }

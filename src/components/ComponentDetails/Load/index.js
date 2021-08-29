@@ -1,5 +1,5 @@
-import LoadFromDirectoryDetails from './LoadLocal/LoadFromDirectoryDetails';
+import LoadFileDetails from './LoadLocal/LoadFileDetails';
 
 export {
-    LoadFromDirectoryDetails
+    LoadFileDetails
 }

@@ -68,7 +68,7 @@ class Admin extends React.Component {
           routes={routes}
           logo={{
             innerLink: "/admin/flows",
-            imgSrc: require("assets/img/brand/flowi.gif"),
+            imgSrc: require("assets/img/brand/flowi.png"),
             imgAlt: "..."
           }}
         />

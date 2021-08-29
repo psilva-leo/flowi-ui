@@ -62,7 +62,7 @@ export class Schedule extends React.Component {
     }
 
     this.props.updateSchedule(schedule)
-    this.setState({ enabled: enabled })    
+    this.setState({ enabled: enabled })
   }
 
   changeScheduleInterval(e) {
@@ -115,11 +115,6 @@ export class Schedule extends React.Component {
                         </label>
                         <InputGroup className="input-group-alternative mb-4">
                           <Input placeholder="0 0 * * *" type="text" onChange={this.changeScheduleInterval} disabled={!this.state.enabled}/>
-                          <InputGroupAddon addonType="append">
-                            <InputGroupText>
-                              <i className="ni ni-calendar-grid-58" />
-                            </InputGroupText>
-                          </InputGroupAddon>
                         </InputGroup>
                       </FormGroup>
                     </Col>
