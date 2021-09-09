@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 
 import * as LoadNodes from "components/ComponentDetails/Load";
+import * as SaveNodes from "components/ComponentDetails/Save";
 import * as LabelNodes from "components/ComponentDetails/Label";
 import * as ModelsNodes from "components/ComponentDetails/Models";
 import * as PreprocessingNodes from "components/ComponentDetails/Preprocessing";
@@ -59,6 +60,7 @@ class ComponentModal extends React.Component {
     };
     this.nodeComponents = {
       'Load': LoadNodes,
+      'Save': SaveNodes,
       'Label': LabelNodes,
       'Preprocessing': PreprocessingNodes,
       'Models': ModelsNodes,

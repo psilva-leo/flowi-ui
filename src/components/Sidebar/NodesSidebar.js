@@ -14,6 +14,7 @@ import axios from 'axios';
 
 import ComponentsList from "components/Sidebar/ComponentsList";
 import * as LoadNodes from "components/DiagramNodes/Load";
+import * as SaveNodes from "components/DiagramNodes/Save";
 import * as ModelsNodes from "components/DiagramNodes/Models";
 import * as LabelNodes from "components/DiagramNodes/Label";
 import * as PreprocessingNodes from "components/DiagramNodes/Preprocessing";
@@ -24,6 +25,7 @@ import * as MetricsNodes from "components/DiagramNodes/Metrics";
 
 const options = [
   { value: LoadNodes, label: 'Load' },
+  { value: SaveNodes, label: 'Save' },
   { value: ModelsNodes, label: 'Models' },
   { value: LabelNodes, label: 'Label' },
   { value: PreprocessingNodes, label: 'Preprocessing' },

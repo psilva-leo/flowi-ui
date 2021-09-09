@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { INodeInnerDefaultProps } from "@mrblenny/react-flow-chart"
 import * as LoadNodes from "components/DiagramNodes/Load";
+import * as SaveNodes from "components/DiagramNodes/Save";
 import * as ModelsNodes from "components/DiagramNodes/Models";
 import * as LabelNodes from "components/DiagramNodes/Label";
 import * as PreprocessingNodes from "components/DiagramNodes/Preprocessing";
@@ -10,6 +11,7 @@ import * as MetricsNodes from "components/DiagramNodes/Metrics";
 
 const componentsNodes = {
     'Load': LoadNodes,
+    'Save': SaveNodes,
     'Models': ModelsNodes,
     'Label': LabelNodes,
     'Preprocessing': PreprocessingNodes,
