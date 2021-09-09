@@ -18,6 +18,7 @@ import Select from 'react-select';
 // import ComponentsList from "components/Sidebar/ComponentsList";
 // import * as LoadNodes from "components/DiagramNodes/Load";
 import * as LoadNodes from "components/ComponentDetails/Load";
+import * as SaveNodes from "components/ComponentDetails/Save";
 // import * as LoadNodes from "components/ComponentDetails/Preprocessing";
 
 
@@ -55,6 +56,7 @@ export class Deploy extends React.Component {
     }
     this.batch_sechedule_interval = this.props.deploy.batch.schedule_interval;
     this.load_option = "";
+    this.save_option = "";
     
 
     this.changeApiEnabled = this.changeApiEnabled.bind(this);
@@ -64,8 +66,8 @@ export class Deploy extends React.Component {
     // this.changeExperimentTracking = this.changeExperimentTracking.bind(this);
   }
 
-  getLoadOptions () {
-    let list = Object.keys(LoadNodes)
+  getOptions (nodes) {
+    let list = Object.keys(nodes)
     console.log(list);
     let options = [];
 
@@ -74,6 +76,37 @@ export class Deploy extends React.Component {
     }
 
     return options;
+  }
+
+
+  getLoadOptions () {
+    return this.getOptions(LoadNodes)
+  }
+
+  getSaveOptions () {
+    return this.getOptions(SaveNodes)
+  }
+
+
+  renderSaveComponent() {
+
+    if (this.save_option == "") {
+      let list = Object.keys(SaveNodes)
+      this.save_option = list[0];
+    }
+
+
+    let attributes = {
+      'label_column': 'label',
+      'save_label_column_only': 'false',
+      'file_name': 'temp',
+      'file_type': 'csv'
+    };
+    
+    const TagName = SaveNodes[this.save_option];
+    return (
+      <TagName attributes={attributes} nodeAttributes={attributes}></TagName>
+    );
   }
 
   renderLoadComponent() {
@@ -293,14 +326,20 @@ export class Deploy extends React.Component {
                         >
                           Output Data
                         </label>
-                        <InputGroup className="input-group-alternative mb-4">
-                          <Input placeholder="s3://flowi/mnist-out.csv" type="text" disabled={!this.state.batchEnabled}/>
-                          <InputGroupAddon addonType="append">
-                            <InputGroupText>
-                              <i className="ni ni-book-bookmark" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                        </InputGroup>
+                        <Input
+                          className="form-control-alternative"
+                          // id={input_id}
+                          defaultValue={this.getSaveOptions()[0]}
+                          // onChange={this.changeText}
+                          type="select">
+                          {this.getSaveOptions()}
+                        </Input>
+                        <Card>
+                          <CardBody>
+                            {this.renderSaveComponent()}
+                          </CardBody>
+                        </Card>
+
                       </FormGroup>
                     </Col>
                   </Row>
