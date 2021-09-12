@@ -5,7 +5,7 @@ import { NODE_CLASS } from './common';
 const properties = {
     name: 'Fillna',
     class: NODE_CLASS,
-    description: 'Fill NA/NaN values using the specified method.',
+    description: 'Fill NA/NaN values using the specified method. If both columns and exclude columns are empty, transformation is applied for all columns.',
     attributes: {
       'columns': '',
       'exclude_columns': '',

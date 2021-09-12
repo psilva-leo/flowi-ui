@@ -1,5 +1,5 @@
-import F1ScoreDetails from './MetricsEvaluation/F1ScoreDetails';
+import AccuracyDetails from './MetricsClassification/AccuracyDetails';
 
 export {
-    F1ScoreDetails
+    AccuracyDetails
 }

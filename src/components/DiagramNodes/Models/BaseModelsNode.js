@@ -5,6 +5,10 @@ const major_type = "Models";
 const ports = {
   port1: {
     id: 'port1',
+    type: 'left',
+  },
+  port2: {
+    id: 'port2',
     type: 'right',
   },
 };

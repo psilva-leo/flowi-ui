@@ -3,13 +3,12 @@ import BaseMetricsNode from "components/DiagramNodes/Metrics/BaseMetricsNode";
 import { NODE_CLASS } from './common';
 
 const properties = {
-    name: 'F1Score',
+    name: 'Accuracy',
     class: NODE_CLASS,
-    description: 'Compute f1 score.',
-    output_policy: 'create',
+    description: 'Compute accuracy score.',
     attributes: {
-      'directory_paths': ['train/'],
-      'file_type': 'binaryFile',
+      'target_column': 'class',
+      'normalize': 'true'
     },
 };
 
@@ -17,11 +16,11 @@ export interface NodeProps {
   draggable: Boolean
 }
 
-export const F1ScoreNode = ({ draggable=true } : NodeProps) => {
+export const AccuracyNode = ({ draggable=true } : NodeProps) => {
   return (
     <BaseMetricsNode properties={properties} draggable={draggable}></BaseMetricsNode>
     )
 }
 
 
-export default F1ScoreNode;
+export default AccuracyNode;

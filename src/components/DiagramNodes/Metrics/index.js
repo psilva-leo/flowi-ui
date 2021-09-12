@@ -1,5 +1,5 @@
-import F1ScoreNode from './MetricsEvaluation/F1ScoreNode';
+import AccuracyNode from './MetricsClassification/Accuracy';
 
 export {
-    F1ScoreNode
+    AccuracyNode
 }

@@ -5,7 +5,7 @@ import { NODE_CLASS } from './common';
 const properties = {
     name: 'StandardScaler',
     class: NODE_CLASS,
-    description: 'Standardize features by removing the mean and scaling to unit variance.',
+    description: 'Standardize features by removing the mean and scaling to unit variance. If both columns and exclude columns are empty, transformation is applied for all columns.',
     attributes: {
       'columns': '',
       'exclude_columns': '',

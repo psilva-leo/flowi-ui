@@ -43,7 +43,7 @@ export class FillnaDetails extends React.Component {
                           attributeName={'strategy'}
                           options={strategyOptions}
                           defaultValue={this.props.nodeAttributes.strategy}
-                          isArray={false}
+                          isArray={true}
             />
 
             <InputDetails name="Fill Value" tooltip="When strategy is “constant”, fill_value is used to replace all occurrences of missing_values."
